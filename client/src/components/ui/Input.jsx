@@ -1,8 +1,8 @@
-const Input = ({ type = "text", name, label }) => {
+const Input = ({ type = "text", name, label, placeholder }) => {
     return (
         <div>
-            <label className="mb-1 text-sm" htmlFor={name}>{label}</label>
-            <input className="bg-white w-full text-sm text-black p-1 outline-0 border-2 border-white rounded focus:border-teal-400" type={type} />
+            <label className="block mb-1 text-sm" htmlFor={name}>{label}</label>
+            <input id={name} autoComplete="off" placeholder={placeholder} className="bg-white rounded w-full text-sm text-black py-1 px-2 outline-0 border-2 border-slate-300 focus:border-emerald-400" type={type} />
         </div>
     )
 }

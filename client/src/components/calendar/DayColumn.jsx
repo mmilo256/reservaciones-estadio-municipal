@@ -7,7 +7,7 @@ const DayColumn = ({ weekDays, events }) => {
             {weekDays.map((dayOfWeek, index) => {
                 const currentDate = dayOfWeek.format("DD MM YYYY")
                 return (
-                    <div key={index} className="border-r border-r-slate-300 text-center min-h-dvh pr-2">
+                    <div key={index} className="border-r pt-2 border-r-slate-300 text-center min-h-dvh pr-2">
                         {events.map((event, index) => {
                             const eventDate = dayjs(event.startDate).format("DD MM YYYY")
                             if (eventDate === currentDate) {

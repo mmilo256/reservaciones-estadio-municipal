@@ -1,23 +1,17 @@
 import { Route, Routes } from 'react-router-dom'
-import Calendar from './components/calendar/Calendar'
-import dayjs from 'dayjs'
-import Login from './components/Login'
+import Login from './pages/Login'
+import Layout from './layouts/Layout'
+import Home from './pages/Home'
+import CreateReservation from './pages/CreateReservation'
 
 const App = () => {
 
-  const events = [
-    {
-      title: "titulo",
-      startDate: dayjs("2025-01-30T09:00:00"),
-      endDate: dayjs("2025-01-30T11:00:00")
-    }
-  ]
-
   return (
-    <div>
+    <div className='h-dvh'>
       <Routes>
         <Route path='/login' element={<Login />} />
-        <Route index element={<Calendar events={events} />} />
+        <Route index element={<Layout title="Calendario semanal"><Home /></Layout>} />
+        <Route path='/crear-reservacion' element={<Layout title="Crear reservación"><CreateReservation /></Layout>} />
       </Routes>
     </div>
   )
