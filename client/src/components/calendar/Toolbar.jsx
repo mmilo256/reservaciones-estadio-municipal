@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import Button from '../ui/Button'
+import Button from '../Button'
 import { GrNext } from "react-icons/gr";
 import { GrPrevious } from "react-icons/gr";
 
