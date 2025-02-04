@@ -1,3 +1,4 @@
+import { Op, where } from "sequelize"
 import Reservacion from "../models/ReservacionModel.js"
 
 // Obtener una reservación según su ID
@@ -87,8 +88,6 @@ export const crearReservacion = async (req, res) => {
             !actividad ||
             !organizacion ||
             !nombre_solicitante ||
-            !correo_solicitante ||
-            !telefono_solicitante ||
             !fecha_actividad ||
             !hora_inicio ||
             !hora_termino
@@ -116,8 +115,17 @@ export const crearReservacion = async (req, res) => {
 
 // Obtener todas las reservaciones
 export const obtenerReservaciones = async (req, res) => {
+    const { start, end } = req.query
+    console.log({ start, end })
     try {
-        const reservaciones = await Reservacion.findAll()
+        const reservaciones = await Reservacion.findAll({
+            attributes: ["actividad", "fecha_actividad", "hora_inicio", "hora_termino"],
+            where: {
+                fecha_actividad: {
+                    [Op.between]: [start, end]
+                }
+            }
+        })
         res.status(200).json({ message: "Se han obtenido todas las reservaciones", reservaciones })
     } catch (error) {
         res.status(500).json({ error: true, message: `No se pudo obtener las reservaciones. ${error.message}` })

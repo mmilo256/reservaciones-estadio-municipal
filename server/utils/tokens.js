@@ -4,7 +4,7 @@ import config from '../config/config.js'
 const { jwtSecret } = config
 
 export const generarTokenJWT = payload => {
-    return Jwt.sign(payload, jwtSecret, { expiresIn: "5m" })
+    return Jwt.sign(payload, jwtSecret, { expiresIn: "10m" })
 }
 
 export const verificarTokenJWT = token => {

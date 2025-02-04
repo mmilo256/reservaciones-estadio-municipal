@@ -12,7 +12,7 @@ const Reservacion = sequelize.define("reservaciones", {
     nombre_solicitante: DataTypes.STRING,
     correo_solicitante: DataTypes.STRING,
     telefono_solicitante: DataTypes.NUMBER,
-    fecha_actividad: DataTypes.DATE,
+    fecha_actividad: DataTypes.DATEONLY,
     hora_inicio: DataTypes.TIME,
     hora_termino: DataTypes.TIME,
     estado: DataTypes.ENUM(['pendiente', 'realizada', 'cancelada'])

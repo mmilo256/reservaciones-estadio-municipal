@@ -1,22 +1,16 @@
 import Toolbar from "./Toolbar"
-import dayjs from 'dayjs'
-import 'dayjs/locale/es'
-import weekday from "dayjs/plugin/weekday";
 import useCalendar from "../../hooks/useCalendar";
 import DayColumn from "./DayColumn";
 import WeekHeader from "./WeekHeader";
 
-const Calendar = ({ events }) => {
+const Calendar = ({ events, currentWeek, setCurrentWeek }) => {
 
-    dayjs.locale("es")
-    dayjs.extend(weekday)
-
-    const { currentWeek,
+    const {
         weekDays,
         onNextWeek,
         onPrevWeek,
         onToday
-    } = useCalendar()
+    } = useCalendar(currentWeek, setCurrentWeek)
 
     return (
         <div>

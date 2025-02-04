@@ -2,6 +2,18 @@ import Usuario from '../models/UsuarioModel.js';
 import { encriptarPassword, verificarPassword } from '../utils/encriptacion.js';
 import { generarTokenJWT } from '../utils/tokens.js';
 
+// Comprobar si el token está vigente
+export const verificarAutenticacion = async (req, res) => {
+    res.status(200).json({
+        isAuthenticated: true,
+        user: {
+            nombres: req.user.nombres,
+            apellidos: req.user.apellidos,
+            usuario: req.user.usuario
+        }
+    })
+}
+
 // Cerrar sesión
 export const cerrarSesion = async (req, res) => {
     try {
@@ -42,14 +54,13 @@ export const iniciarSesion = async (req, res) => {
         const payload = {
             usuario: usuario.username,
             nombres: usuario.nombres,
-            apellidos: usuario.apellidos,
-            email: usuario.email
+            apellidos: usuario.apellidos
         }
         const token = generarTokenJWT(payload)
 
         // Guardar token en una cookie httpOnly
         res.cookie('jwt', token, { httpOnly: true })
-        res.status(200).json({ message: "Se ha iniciado sesión correctamente", token })
+        res.status(200).json({ message: "Se ha iniciado sesión correctamente", user: payload })
     } catch (error) {
         res.status(500).json({ error: true, message: "No se pudo iniciar sesión" })
     }

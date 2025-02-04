@@ -2,14 +2,27 @@ import Button from "../../components/Button"
 import Input from "../../components/Input"
 import { useForm } from 'react-hook-form'
 import { validationRules } from "../validations"
+import { formatDate } from "../../utils/format"
+import { createReservation } from "../../services/ReservationServices"
 
 const CreateReservationForm = () => {
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm()
+    const { register, handleSubmit, watch, formState: { errors }, reset } = useForm()
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         console.log(data)
+        try {
+            await createReservation(data)
+            alert("Se ha agregado la reservación")
+            reset()
+        } catch (error) {
+            console.log(error.message)
+            alert("No se pudo crear la reservación")
+        }
     }
+
+    // Fecha de hoy
+    const today = formatDate(new Date())
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
@@ -17,94 +30,94 @@ const CreateReservationForm = () => {
                 <Input
                     register={register}
                     label="Nombre de la organización"
-                    name="orgName"
+                    name="organizacion"
                     placeholder="Club Deportivo 77"
                     validations={{
                         required: validationRules.required,
                         minLength: validationRules.minLength(3)
                     }}
-                    error={errors["orgName"]}
+                    error={errors["organizacion"]}
                 />
                 <Input
                     register={register}
                     label="Nombre del solicitante"
-                    name="personName"
+                    name="nombre_solicitante"
                     placeholder="Juan Pérez"
                     validations={{
                         required: validationRules.required,
                         minLength: validationRules.minLength(3)
                     }}
-                    error={errors["personName"]}
+                    error={errors["nombre_solicitante"]}
                 />
             </div>
             <div className="grid grid-cols-2 gap-2">
                 <Input
                     register={register}
                     label="Correo electrónico"
-                    name="email"
+                    name="correo_solicitante"
                     placeholder="correo@ejemplo.cl"
                     type="email"
                     validations={{
                         pattern: validationRules.email
                     }}
-                    error={errors["email"]}
+                    error={errors["correo_solicitante"]}
                 />
                 <Input
                     register={register}
                     label="Teléfono"
-                    name="phone"
+                    name="telefono_solicitante"
                     placeholder="958654985"
                     type="number"
                     validations={{
                         minLength: validationRules.minLength(8)
                     }}
-                    error={errors["phone"]}
+                    error={errors["telefono_solicitante"]}
                 />
             </div>
             <hr className="text-slate-300 mt-2" />
             <Input
                 register={register}
                 label="Nombre de la actividad"
-                name="activityName"
+                name="actividad"
                 placeholder="Campeonato de fútbol"
                 validations={{
                     required: validationRules.required,
                     minLength: validationRules.minLength(3)
                 }}
                 max={9}
-                error={errors["activityName"]}
+                error={errors["actividad"]}
             />
             <Input
                 register={register}
                 label="Fecha de la actividad"
-                name="date"
+                name="fecha_actividad"
                 type="date"
-                min={"2025-02-03"}
+                min={today}
                 validations={{
                     required: validationRules.required
                 }}
-                error={errors["date"]}
+                error={errors["fecha_actividad"]}
             />
-            {watch("date") && <div className="grid grid-cols-2 gap-2">
+            {watch("fecha_actividad") && <div className="grid grid-cols-2 gap-2">
                 <Input
                     register={register}
                     label="Hora de inicio"
-                    name="startTime"
+                    name="hora_inicio"
                     type="time"
                     validations={{
                         required: validationRules.required
                     }}
-                    error={errors["startTime"]}
+                    error={errors["hora_inicio"]}
                 />
                 <Input
                     register={register}
                     label="Hora de término"
-                    name="endTime"
+                    name="hora_termino"
                     type="time"
                     validations={{
                         required: validationRules.required
                     }}
-                    error={errors["endTime"]}
+                    error={errors["hora_termino"]}
                 />
             </div>}
             <div className="mt-4">

@@ -1,10 +1,12 @@
 import e from 'express'
-import { cerrarSesion, iniciarSesion, registrarUsuario } from '../controllers/UsuarioController.js'
+import { cerrarSesion, iniciarSesion, registrarUsuario, verificarAutenticacion } from '../controllers/UsuarioController.js'
+import { verificarToken } from '../middlewares/authMiddleware.js'
 
 const router = e.Router()
 
-router.post("/registrar-usuario", registrarUsuario)
-router.post("/iniciar-sesion", iniciarSesion)
-router.post("/cerrar-sesion", cerrarSesion)
+router.post("/register", registrarUsuario)
+router.post("/login", iniciarSesion)
+router.post("/logout", cerrarSesion)
+router.get("/check", verificarToken, verificarAutenticacion)
 
 export default router

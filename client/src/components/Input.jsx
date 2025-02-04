@@ -6,7 +6,6 @@ const Input = ({
     register,
     validations,
     error,
-    max,
     min
 }) => {
 
@@ -22,7 +21,6 @@ const Input = ({
                 autoComplete="off"
                 placeholder={placeholder}
                 type={type}
-                max={max}
                 min={min}
                 {...(register ? register(name, { ...validations }) : {})}
             />

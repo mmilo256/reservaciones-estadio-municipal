@@ -1,6 +1,6 @@
 import { verificarTokenJWT } from "../utils/tokens.js"
 
-export const authMiddleware = async (req, res, next) => {
+export const verificarToken = async (req, res, next) => {
     try {
         // Comprobar si hay access token en cookies
         const token = req.cookies['jwt']
@@ -13,7 +13,7 @@ export const authMiddleware = async (req, res, next) => {
         if (!decoded) {
             return res.status(403).json({ error: true, message: "El token no es válido" })
         }
-
+        req.user = decoded
         // Continuar con la petición
         next()
     } catch (error) {
