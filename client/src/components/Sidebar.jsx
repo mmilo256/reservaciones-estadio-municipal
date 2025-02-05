@@ -5,7 +5,7 @@ const Sidebar = () => {
 
     const nav = [
         {
-            label: "Inicio",
+            label: "Calendario",
             to: "/"
         }, {
             label: "Historial de reservaciones",

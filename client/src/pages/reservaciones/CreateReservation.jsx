@@ -12,12 +12,9 @@ const CreateReservation = () => {
                 </div>
                 <div className="col-span-2">
                     <h2 className="text-xl mb-4">Horas ocupadas</h2>
-                    <div className="bg-white p-4 flex flex-col gap-2 shadow rounded">
-                        <EventCard />
-                        <EventCard />
-                        <EventCard />
-                        <EventCard />
-                        <EventCard />
+                    <div className="flex flex-col gap-2">
+                        <EventCard title="partido de fútbol" startDate="9:00" endDate="10:30" />
+                        <EventCard title="campeonato" startDate="14:00" endDate="16:45" />
                     </div>
                 </div>
             </Container>

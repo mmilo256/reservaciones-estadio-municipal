@@ -1,6 +1,14 @@
+import customFetch from "./customFetch"
+
 const baseUrl = "http://localhost:10000/api/reservaciones"
 
 export const fetchReservations = async (start, end) => {
+    const response = await customFetch(`${baseUrl}?start=${start}&end=${end}`)
+    const data = await response.json()
+    return data
+}
+
+export const fetchReservations2 = async (start, end) => {
     try {
         const response = await fetch(`${baseUrl}?start=${start}&end=${end}`, {
             method: "GET",

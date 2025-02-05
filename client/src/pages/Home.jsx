@@ -23,8 +23,12 @@ const Home = () => {
     // Cargar todas las reservaciones
     useEffect(() => {
         (async () => {
-            const data = await fetchReservations(currentWeek, currentWeekLastDay)
-            setReservaciones(data.reservaciones)
+            try {
+                const data = await fetchReservations(currentWeek, currentWeekLastDay)
+                setReservaciones(data.reservaciones)
+            } catch (error) {
+                console.log(error.message)
+            }
         })()
     }, [currentWeek, currentWeekLastDay])
 

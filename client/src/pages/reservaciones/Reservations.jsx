@@ -8,8 +8,23 @@ const Reservations = () => {
         data: [
             {
                 org: "Nombre organización",
-                actividad: "Campeonato 3000",
+                actividad: "Campeonato",
                 fecha: "24/12/2025",
+                estado: <StatusTag status="realizada" />
+            }, {
+                org: "Nombre organización",
+                actividad: "Partido de fútbol",
+                fecha: "25/12/2025",
+                estado: <StatusTag status="pendiente" />
+            }, {
+                org: "Organización 3",
+                actividad: "Actividad",
+                fecha: "25/12/2025",
+                estado: <StatusTag status="cancelada" />
+            }, {
+                org: "Organización 4",
+                actividad: "Actividad",
+                fecha: "25/12/2025",
                 estado: <StatusTag status="realizada" />
             }
         ]

@@ -1,4 +1,14 @@
+import customFetch from "./customFetch"
+
 const baseUrl = "http://localhost:10000/auth"
+
+export const logout = async () => {
+    const options = {
+        method: "POST"
+    }
+    const response = await customFetch(`${baseUrl}/logout`, options)
+    return response
+}
 
 export const fetchAuthData = async () => {
     try {

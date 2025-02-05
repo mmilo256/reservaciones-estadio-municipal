@@ -9,8 +9,7 @@ const DayColumn = ({ weekDays, events }) => {
                 return (
                     <div key={index} className="border-r pt-2 border-r-slate-300 text-center min-h-dvh pr-2">
                         {events.map((event, index) => {
-                            const eventDate = dayjs(event.hora_inicio).format("DD MM YYYY")
-                            console.log(event)
+                            const eventDate = dayjs(event.fecha_actividad + "T" + event.hora_inicio).format("DD MM YYYY")
                             if (eventDate === currentDate) {
 
                                 return (
