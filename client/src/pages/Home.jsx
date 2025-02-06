@@ -33,7 +33,7 @@ const Home = () => {
     }, [currentWeek, currentWeekLastDay])
 
     return (
-        <div className="shadow h-[30rem] overflow-hidden">
+        <div className="shadow">
             <Calendar events={reservaciones} currentWeek={currentWeek} setCurrentWeek={setCurrentWeek} />
         </div>
     )
