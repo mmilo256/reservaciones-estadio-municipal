@@ -1,16 +1,12 @@
 import Button from "../../components/Button"
 import Input from "../../components/Input"
-import { useForm } from 'react-hook-form'
 import { validationRules } from "../validations"
 import { formatDate } from "../../utils/format"
 import { createReservation } from "../../services/ReservationServices"
 
-const CreateReservationForm = () => {
-
-    const { register, handleSubmit, watch, formState: { errors }, reset } = useForm()
+const CreateReservationForm = ({ register, handleSubmit, watch, errors, reset }) => {
 
     const onSubmit = async (data) => {
-        console.log(data)
         try {
             await createReservation(data)
             alert("Se ha agregado la reservación")
@@ -66,8 +62,10 @@ const CreateReservationForm = () => {
                     register={register}
                     label="Teléfono"
                     name="telefono_solicitante"
+                    onInput={(e) => (e.target.value = e.target.value.replace(/\D/g, ""))}
                     placeholder="958654985"
-                    type="number"
+                    type="text"
+                    maxLength={9}
                     validations={{
                         minLength: validationRules.minLength(8)
                     }}

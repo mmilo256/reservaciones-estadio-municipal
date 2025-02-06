@@ -116,15 +116,16 @@ export const crearReservacion = async (req, res) => {
 // Obtener todas las reservaciones
 export const obtenerReservaciones = async (req, res) => {
     const { start, end } = req.query
-    console.log({ start, end })
     try {
         const reservaciones = await Reservacion.findAll({
             attributes: ["actividad", "fecha_actividad", "hora_inicio", "hora_termino"],
+            order: [["hora_inicio", "ASC"]],
             where: {
                 fecha_actividad: {
                     [Op.between]: [start, end]
                 }
-            }
+            },
+
         })
         res.status(200).json({ message: "Se han obtenido todas las reservaciones", reservaciones })
     } catch (error) {
