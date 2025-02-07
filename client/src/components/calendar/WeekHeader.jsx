@@ -2,7 +2,7 @@ import dayjs from "dayjs"
 
 const WeekHeader = ({ weekDays }) => {
     return (
-        <div className="bg-slate-100 min-w-[40rem] sticky top-0 w-full border-b border-black/20 bg-light grid grid-cols-7 gap-2">
+        <div className="bg-slate-100 min-w-[30rem] sticky top-0 w-full border-b border-black/20 bg-light grid grid-cols-7 gap-2">
             {weekDays.map((dayOfWeek, index) => {
                 const date = dayOfWeek.format("DD")
                 const day = dayOfWeek.format("ddd").slice(0, -1)

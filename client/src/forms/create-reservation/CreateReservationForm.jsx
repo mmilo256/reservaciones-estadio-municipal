@@ -22,7 +22,7 @@ const CreateReservationForm = ({ register, handleSubmit, watch, errors, reset })
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
-            <div className="grid grid-cols-2 gap-2">
+            <div className="md:grid grid-cols-2 gap-2">
                 <Input
                     register={register}
                     label="Nombre de la organización"
@@ -46,7 +46,7 @@ const CreateReservationForm = ({ register, handleSubmit, watch, errors, reset })
                     error={errors["nombre_solicitante"]}
                 />
             </div>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="md:grid grid-cols-2 gap-2">
                 <Input
                     register={register}
                     label="Correo electrónico"

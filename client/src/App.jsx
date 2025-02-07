@@ -24,7 +24,7 @@ const App = () => {
   if (loading) return null
 
   return (
-    <div className='overflow-hidden h-dvh'>
+    <div className='min-h-dvh'>
       <Routes>
         <Route path='/login' element={<Login />} />
         <Route index element={<PrivateRoute><Layout title="Calendario semanal"><Home /></Layout></PrivateRoute>} />

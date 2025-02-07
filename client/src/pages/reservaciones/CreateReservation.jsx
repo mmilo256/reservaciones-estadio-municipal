@@ -33,10 +33,10 @@ const CreateReservation = () => {
     }, [fecha])
 
     return (
-        <div className="bg-slate-100 pt-5 min-h-[calc(100dvh-3rem)]">
-            <Container className="grid grid-cols-5 gap-4">
-                <div className="col-span-3">
-                    <h2 className="text-xl mb-4">Nueva reservación</h2>
+        <div className="bg-slate-100 py-5 min-h-[calc(100dvh-3rem)]">
+            <Container className="sm:grid grid-cols-2 gap-4">
+                <div className="mb-4">
+                    <h2 className="text-xl text-center mb-4">Nueva reservación</h2>
                     <CreateReservationForm
                         register={register}
                         handleSubmit={handleSubmit}
@@ -45,9 +45,9 @@ const CreateReservation = () => {
                         reset={reset}
                     />
                 </div>
-                <div className="col-span-2">
-                    <h2 className="text-xl">Horas ocupadas</h2>
-                    <p className="py-2">{fecha && dayjs(fecha).format("DD [de] MMMM [de] YYYY")}</p>
+                <div>
+                    <h2 className="text-xl text-center">Horas ocupadas</h2>
+                    <p className="py-2 text-center">{fecha && dayjs(fecha).format("DD [de] MMMM [de] YYYY")}</p>
                     <div className="flex flex-col gap-2">
                         {loading && <p>Cargando reservaciones...</p>}
                         {reservations.map((reservation, index) => (

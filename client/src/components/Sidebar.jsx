@@ -4,23 +4,15 @@ import useAuthStore from "../stores/useAuthStore"
 import { GrPrevious } from "react-icons/gr";
 import { useState } from "react";
 
-const nav = [
-    {
-        label: "Calendario",
-        to: "/"
-    }, {
-        label: "Historial de reservaciones",
-        to: "/reservaciones"
-    }
-]
 
-const Sidebar = () => {
+
+const Sidebar = ({ nav }) => {
 
     const { logoutUser } = useAuthStore()
-    const [sidebar, setSidebar] = useState(true)
+    const [toggleMenu, setToggleMenu] = useState(true)
 
     const onToggleSidebar = () => {
-        setSidebar(!sidebar)
+        setToggleMenu(!toggleMenu)
     }
 
     const onLogout = async () => {
@@ -28,9 +20,9 @@ const Sidebar = () => {
     }
 
     return (
-        <aside className={`hidden md:block relative transition-all ${sidebar ? "w-80 pr-14" : "w-0 pr-5"} bg-emerald-700 h-dvh p-2`}>
-            <button onClick={onToggleSidebar} className={`transition-all absolute ${sidebar ? "right-2" : "-right-2 rotate-180"} top-15 text-white bg-emerald-700 hover:bg-emerald-600 rounded-full border border-white/30 cursor-pointer text-sm p-2`}><GrPrevious /></button>
-            <div className={`transition-transform ${sidebar ? "translate-x-0" : "-translate-x-64"}`}>
+        <aside className={`hidden md:block relative transition-all ${toggleMenu ? "w-80 pr-14" : "w-0 pr-5"} min-h-dvh bg-emerald-700 p-2`}>
+            <button onClick={onToggleSidebar} className={`transition-all absolute ${toggleMenu ? "right-2" : "-right-2 rotate-180"} top-15 text-white bg-emerald-700 hover:bg-emerald-600 rounded-full border border-white/30 cursor-pointer text-sm p-2`}><GrPrevious /></button>
+            <div className={`w-40 transition-transform ${toggleMenu ? "translate-x-0" : "-translate-x-64"}`}>
                 <Link to="/" className="block text-2xl text-white mb-6">Estadio Municipal de Chonchi</Link>
                 <Button type="link" onClick="/reservaciones/crear" text="Crear reservación" />
                 <ul className="text-emerald-100 mt-6">
