@@ -115,16 +115,26 @@ export const crearReservacion = async (req, res) => {
 
 // Obtener todas las reservaciones
 export const obtenerReservaciones = async (req, res) => {
-    const { start, end } = req.query
+    const { start, end, page, limit } = req.query
+    const whereOptions = {}
+
+    if (start && end) {
+        whereOptions.fecha_actividad = {
+            [Op.between]: [start, end]
+        }
+    }
+
+    if (page && limit) {
+        const offset = (page - 1) * limit
+    }
+
     try {
-        const reservaciones = await Reservacion.findAll({
-            attributes: ["actividad", "fecha_actividad", "hora_inicio", "hora_termino"],
+        const reservaciones = await Reservacion.findAndCountAll({
+            attributes: ["id", "actividad", "fecha_actividad", "hora_inicio", "hora_termino"],
             order: [["hora_inicio", "ASC"]],
-            where: {
-                fecha_actividad: {
-                    [Op.between]: [start, end]
-                }
-            },
+            where: whereOptions,
+            offset,
+            limit
 
         })
         res.status(200).json({ message: "Se han obtenido todas las reservaciones", reservaciones })
