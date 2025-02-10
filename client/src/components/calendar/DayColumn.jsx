@@ -2,6 +2,7 @@ import dayjs from "dayjs"
 import Event from "./Event"
 
 const DayColumn = ({ weekDays, events }) => {
+
     return (
         <div className="grid grid-cols-7 overflow-y-scroll h-72 min-w-[30rem]">
             {weekDays.map((dayOfWeek, index) => {
@@ -11,7 +12,6 @@ const DayColumn = ({ weekDays, events }) => {
                         {events.map((event, index) => {
                             const eventDate = dayjs(event.fecha_actividad + "T" + event.hora_inicio).format("DD MM YYYY")
                             if (eventDate === currentDate) {
-
                                 return (
                                     <Event key={index} data={event} />
                                 )

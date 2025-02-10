@@ -8,8 +8,12 @@ export const fetchReservationById = async (id) => {
     return data
 }
 
-export const fetchReservations = async (start, end) => {
-    const response = await customFetch(`${baseUrl}?start=${start}&end=${end}`)
+export const fetchReservations = async ({ page = 1, limit = 10, startDate, endDate } = {}) => {
+    let queryString = ""
+    if (startDate && endDate) {
+        queryString = `&start=${startDate}&end=${endDate}`
+    }
+    const response = await customFetch(`${baseUrl}?page=${page}&limit=${limit}${queryString}`)
     const data = await response.json()
     return data
 }

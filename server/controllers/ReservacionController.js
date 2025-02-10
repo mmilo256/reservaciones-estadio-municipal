@@ -1,4 +1,4 @@
-import { Op, where } from "sequelize"
+import { Op } from "sequelize"
 import Reservacion from "../models/ReservacionModel.js"
 
 // Obtener una reservación según su ID
@@ -115,29 +115,29 @@ export const crearReservacion = async (req, res) => {
 
 // Obtener todas las reservaciones
 export const obtenerReservaciones = async (req, res) => {
-    const { start, end, page, limit } = req.query
+    const { page = 1, limit = 10, startDate, endDate } = req.query
+
+    const offset = (page - 1) * limit
+
     const whereOptions = {}
 
-    if (start && end) {
+    if (startDate && endDate) {
         whereOptions.fecha_actividad = {
             [Op.between]: [start, end]
         }
     }
 
-    if (page && limit) {
-        const offset = (page - 1) * limit
-    }
+    console.log(startDate, endDate)
 
     try {
-        const reservaciones = await Reservacion.findAndCountAll({
+        const { count, rows } = await Reservacion.findAndCountAll({
             attributes: ["id", "actividad", "fecha_actividad", "hora_inicio", "hora_termino"],
             order: [["hora_inicio", "ASC"]],
             where: whereOptions,
             offset,
             limit
-
         })
-        res.status(200).json({ message: "Se han obtenido todas las reservaciones", reservaciones })
+        res.status(200).json({ count, rows })
     } catch (error) {
         res.status(500).json({ error: true, message: `No se pudo obtener las reservaciones. ${error.message}` })
     }

@@ -24,8 +24,9 @@ const Home = () => {
     useEffect(() => {
         (async () => {
             try {
-                const data = await fetchReservations(currentWeek, currentWeekLastDay)
-                setReservaciones(data.reservaciones)
+                const data = await fetchReservations({ startDate: currentWeek, endDate: currentWeekLastDay })
+                console.log(data)
+                setReservaciones(data.rows)
             } catch (error) {
                 console.log(error.message)
             }

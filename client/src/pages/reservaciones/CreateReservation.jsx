@@ -22,8 +22,8 @@ const CreateReservation = () => {
             try {
                 setLoading(true)
                 setReservations([])
-                const data = await fetchReservations(fecha, fecha)
-                setReservations(data.reservaciones)
+                const data = await fetchReservations({ start: fecha, end: fecha })
+                setReservations(data.rows)
             } catch (error) {
                 console.log(error.message)
             } finally {
