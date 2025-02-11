@@ -1,15 +1,12 @@
-import useCalendarStore from "../stores/useCalendarStore"
 import { FaTimes } from "react-icons/fa";
 
-const Modal = ({ children, title }) => {
-
-    const { eventModal, setEventModal } = useCalendarStore()
+const Modal = ({ children, title, modal, setModal }) => {
 
     const onCloseModal = () => {
-        setEventModal(false)
+        setModal(false)
     }
 
-    if (!eventModal) return null
+    if (!modal) return null
 
 
     return (

@@ -2,20 +2,8 @@ import Button from "../../components/Button"
 import Input from "../../components/Input"
 import { validationRules } from "../validations"
 import { formatDate } from "../../utils/format"
-import { createReservation } from "../../services/ReservationServices"
 
-const CreateReservationForm = ({ register, handleSubmit, watch, errors, reset }) => {
-
-    const onSubmit = async (data) => {
-        try {
-            await createReservation(data)
-            alert("Se ha agregado la reservación")
-            reset()
-        } catch (error) {
-            console.log(error.message)
-            alert("No se pudo crear la reservación")
-        }
-    }
+const ReservationForm = ({ register, handleSubmit, watch, errors, onSubmit, buttonText }) => {
 
     // Fecha de hoy
     const today = formatDate(new Date())
@@ -119,10 +107,10 @@ const CreateReservationForm = ({ register, handleSubmit, watch, errors, reset })
                 />
             </div>}
             <div className="mt-4">
-                <Button type="submit" text="Crear reservación" />
+                <Button type="submit" text={buttonText} />
             </div>
         </form>
     )
 }
 
-export default CreateReservationForm
+export default ReservationForm

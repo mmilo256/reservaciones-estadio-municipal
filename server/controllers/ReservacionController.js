@@ -23,7 +23,8 @@ export const actualizarReservacion = async (req, res) => {
             telefono_solicitante,
             fecha_actividad,
             hora_inicio,
-            hora_termino } = req.body
+            hora_termino,
+            estado } = req.body
 
         // Verificar que la reservación exista en base de datos
         const { id } = req.params
@@ -42,6 +43,7 @@ export const actualizarReservacion = async (req, res) => {
         if (fecha_actividad) updates.fecha_actividad = fecha_actividad
         if (hora_inicio) updates.hora_inicio = hora_inicio
         if (hora_termino) updates.hora_termino = hora_termino
+        if (estado) updates.estado = estado
 
         await reservacion.update(updates)
         res.status(203).json({ message: "La reservación se ha modificado exitosamente.", reservacion })
@@ -105,7 +107,7 @@ export const crearReservacion = async (req, res) => {
             fecha_actividad,
             hora_inicio,
             hora_termino,
-            estado: "pendiente"
+            estado: "activa"
         })
         res.status(200).json({ message: "Se ha creado la reservación.", reservacion })
     } catch (error) {
@@ -115,29 +117,34 @@ export const crearReservacion = async (req, res) => {
 
 // Obtener todas las reservaciones
 export const obtenerReservaciones = async (req, res) => {
-    const { page = 1, limit = 10, startDate, endDate } = req.query
+    const { page = 1, limit = 10, start, end, status } = req.query
+
+    console.log({ start, end })
 
     const offset = (page - 1) * limit
 
     const whereOptions = {}
 
-    if (startDate && endDate) {
+    if (start && end) {
         whereOptions.fecha_actividad = {
             [Op.between]: [start, end]
         }
     }
 
-    console.log(startDate, endDate)
+    if (status) {
+        whereOptions.estado = status
+    }
 
     try {
         const { count, rows } = await Reservacion.findAndCountAll({
-            attributes: ["id", "actividad", "fecha_actividad", "hora_inicio", "hora_termino"],
-            order: [["hora_inicio", "ASC"]],
+            attributes: ["id", "organizacion", "actividad", "fecha_actividad", "hora_inicio", "hora_termino", "estado"],
+            order: [["fecha_actividad", "DESC"], ["hora_inicio", "ASC"]],
             where: whereOptions,
             offset,
             limit
         })
-        res.status(200).json({ count, rows })
+        const totalPages = Math.ceil(count / limit)
+        res.status(200).json({ count, rows, totalPages })
     } catch (error) {
         res.status(500).json({ error: true, message: `No se pudo obtener las reservaciones. ${error.message}` })
     }

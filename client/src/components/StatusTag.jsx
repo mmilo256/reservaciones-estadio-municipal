@@ -1,12 +1,9 @@
-const StatusTag = ({ status = "pendiente" }) => {
+const StatusTag = ({ status = "activa" }) => {
 
     let tagStyles = ""
 
     switch (status) {
-        case "pendiente":
-            tagStyles = "bg-orange-100 border-orange-600 text-orange-600"
-            break;
-        case "realizada":
+        case "activa":
             tagStyles = "bg-green-100 border-green-600 text-green-600"
             break;
         case "cancelada":
