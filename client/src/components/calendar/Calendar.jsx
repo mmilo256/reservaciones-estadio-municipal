@@ -2,8 +2,12 @@ import Toolbar from "./Toolbar"
 import useCalendar from "../../hooks/useCalendar";
 import DayColumn from "./DayColumn";
 import WeekHeader from "./WeekHeader";
+import useCalendarStore from "../../stores/useCalendarStore";
+import ReservationDetails from "../../pages/reservaciones/ReservationDetails";
 
 const Calendar = ({ events, currentWeek, setCurrentWeek }) => {
+
+    const { selectedEvent } = useCalendarStore()
 
     const {
         weekDays,
@@ -24,6 +28,7 @@ const Calendar = ({ events, currentWeek, setCurrentWeek }) => {
                 <WeekHeader weekDays={weekDays} />
                 <DayColumn weekDays={weekDays} events={events} />
             </div>
+            <ReservationDetails event={selectedEvent} />
         </div>
     )
 }

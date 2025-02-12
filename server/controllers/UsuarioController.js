@@ -1,3 +1,4 @@
+import logger from '../config/winston.js';
 import Usuario from '../models/UsuarioModel.js';
 import { encriptarPassword, verificarPassword } from '../utils/encriptacion.js';
 import { generarTokenJWT } from '../utils/tokens.js';
@@ -21,6 +22,8 @@ export const cerrarSesion = async (req, res) => {
         if (token) {
             res.clearCookie('jwt', { httpOnly: true })
         }
+        const { usuario } = req.user
+        logger.info(`El usuario ${usuario} ha cerrado sesión`)
         res.status(200).json({ message: "Se ha cerrado la sesión correctamente" })
     } catch (error) {
         res.status(500).json({ error: true, message: "No se pudo borrar la cookie" })
@@ -58,6 +61,7 @@ export const iniciarSesion = async (req, res) => {
         }
         const token = generarTokenJWT(payload)
 
+        logger.info(`El usuario ${username} ha iniciado sesión`)
         // Guardar token en una cookie httpOnly
         res.cookie('jwt', token, { httpOnly: true })
         res.status(200).json({ message: "Se ha iniciado sesión correctamente", user: payload })

@@ -2,28 +2,36 @@ import customFetch from "./customFetch"
 
 const baseUrl = "http://localhost:10000/api/reservaciones"
 
-export const fetchReservations = async (start, end) => {
-    const response = await customFetch(`${baseUrl}?start=${start}&end=${end}`)
+export const editReservation = async (id, reservationData) => {
+    const options = {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(reservationData)
+    }
+    const response = await customFetch(`${baseUrl}/${id}`, options)
     const data = await response.json()
     return data
 }
 
-export const fetchReservations2 = async (start, end) => {
-    try {
-        const response = await fetch(`${baseUrl}?start=${start}&end=${end}`, {
-            method: "GET",
-            credentials: "include"
-        })
-        if (!response.ok) {
-            const error = response.json()
-            throw new Error(error.message)
-        }
-        const data = response.json()
-        return data
-    } catch (error) {
-        console.error(error)
-        throw error
+export const fetchReservationById = async (id) => {
+    const response = await customFetch(`${baseUrl}/${id}`)
+    const data = await response.json()
+    return data
+}
+
+export const fetchReservations = async ({ page = 1, limit = 10, start, end, status } = {}) => {
+    let queryString = ""
+    if (start && end) {
+        queryString += `&start=${start}&end=${end}`
     }
+    if (status) {
+        queryString += `&status=${status}`
+    }
+    const response = await customFetch(`${baseUrl}?page=${page}&limit=${limit}${queryString}`)
+    const data = await response.json()
+    return data
 }
 
 export const createReservation = async (reservation) => {

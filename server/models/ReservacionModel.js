@@ -15,7 +15,7 @@ const Reservacion = sequelize.define("reservaciones", {
     fecha_actividad: DataTypes.DATEONLY,
     hora_inicio: DataTypes.TIME,
     hora_termino: DataTypes.TIME,
-    estado: DataTypes.ENUM(['pendiente', 'realizada', 'cancelada'])
+    estado: DataTypes.ENUM(['activa', 'cancelada'])
 })
 
 export default Reservacion

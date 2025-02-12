@@ -1,3 +1,4 @@
+import logger from "../config/winston.js"
 import { verificarTokenJWT } from "../utils/tokens.js"
 
 export const verificarToken = async (req, res, next) => {

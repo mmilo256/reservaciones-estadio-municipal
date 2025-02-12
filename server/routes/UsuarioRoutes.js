@@ -6,7 +6,7 @@ const router = e.Router()
 
 router.post("/register", registrarUsuario)
 router.post("/login", iniciarSesion)
-router.post("/logout", cerrarSesion)
+router.post("/logout", verificarToken, cerrarSesion)
 router.get("/check", verificarToken, verificarAutenticacion)
 
 export default router
