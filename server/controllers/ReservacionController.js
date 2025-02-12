@@ -1,5 +1,7 @@
 import { Op } from "sequelize"
 import Reservacion from "../models/ReservacionModel.js"
+import logger from "../config/winston.js"
+
 
 // Obtener una reservación según su ID
 export const obtenerReservacionPorId = async (req, res) => {
@@ -44,8 +46,9 @@ export const actualizarReservacion = async (req, res) => {
         if (hora_inicio) updates.hora_inicio = hora_inicio
         if (hora_termino) updates.hora_termino = hora_termino
         if (estado) updates.estado = estado
-
         await reservacion.update(updates)
+        const { usuario } = req.user
+        logger.info(`El usuario ${usuario} modificó la reservación #${id}`)
         res.status(203).json({ message: "La reservación se ha modificado exitosamente.", reservacion })
     } catch (error) {
         res.status(500).json({ error: true, message: `No se pudo borrar la reservación. ${error.messages}` })
@@ -109,6 +112,9 @@ export const crearReservacion = async (req, res) => {
             hora_termino,
             estado: "activa"
         })
+        const { usuario } = req.user
+        console.log(reservacion)
+        logger.info(`El usuario ${usuario} creó la reservación #${reservacion.id}`)
         res.status(200).json({ message: "Se ha creado la reservación.", reservacion })
     } catch (error) {
         res.status(500).json({ error: true, message: `No se pudo crear la reservación. ${error.message}` })
@@ -118,8 +124,6 @@ export const crearReservacion = async (req, res) => {
 // Obtener todas las reservaciones
 export const obtenerReservaciones = async (req, res) => {
     const { page = 1, limit = 10, start, end, status } = req.query
-
-    console.log({ start, end })
 
     const offset = (page - 1) * limit
 

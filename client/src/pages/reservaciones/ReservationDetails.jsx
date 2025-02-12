@@ -30,9 +30,9 @@ const ReservationDetails = ({ event }) => {
                     {event.telefono_solicitante && <p className="font-light text-slate-600"> <span className="font-normal">Teléfono solicitante:</span> {event.telefono_solicitante}</p>}
                 </div>
             </div>
-            <div className="mt-4">
+            {event.estado === "activa" && <div className="mt-4">
                 <Button onClick={onEditReservation} text="Editar" />
-            </div>
+            </div>}
         </Modal>
     )
 }
