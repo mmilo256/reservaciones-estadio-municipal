@@ -30,7 +30,7 @@ const Reservations = () => {
                 }
             }
 
-            const res = await fetchReservations({ page: currentPage, limit: 3 })
+            const res = await fetchReservations({ page: currentPage, limit: 10 })
             const formattedData = res.rows.map((reservation) => ({
                 org: reservation.organizacion,
                 actividad: reservation.actividad,
